@@ -1,9 +1,13 @@
 name: deployResources
 env: 
+  theScope: 'resourcegroup'
   resource-group: 'demo-iac-from-pipeline-rg'
+  theRegion: 'eastus2'
   avnet-name: 'avent'
   bastionTemplateName: 'templateBastion'
   storageAccountName: 'demostorageacctjb02'
+  templateLocation: './ExportedTemplate-vmtemplate-rg/template.json'
+  parametersLocation: './ExportedTemplate-vmtemplate-rg/parameters.json'
 on: 
     push: 
       branches: [ none ]
@@ -23,3 +27,16 @@ jobs:
       uses: azure/login@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - name: Deploy ARM template
+      uses: Azure/arm-deploy@v1
+      with:
+        # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
+        scope: ${{ env.theScope }}
+        # Provide the target region, only required for management Group or Subscription deployments.
+        region: ${{ env.theRegion }}
+        # Provide the name of a resource group, only required for resource Group deployments.
+        resourceGroupName: ${{ env.resource-group }}
+        # Specify the path or URL to the Azure Resource Manager template.
+        template: ${{ env.templateLocation }}
+        parameters: ${{ env.parametersLocation }}
+          
