@@ -1,0 +1,25 @@
+name: deployResources
+env: 
+  resource-group: 'demo-iac-from-pipeline-rg'
+  avnet-name: 'avent'
+  bastionTemplateName: 'templateBastion'
+  storageAccountName: 'demostorageacctjb02'
+on: 
+    push: 
+      branches: [ none ]
+    workflow_dispatch:
+      inputs:
+        logLevel: 
+          description: 'Log level'
+          required: true
+          default: 'warning'
+
+jobs: 
+  deploy-to-dev:
+
+    runs-on: windows-2016
+    steps: 
+    - name: Log in with Azure
+      uses: azure/login@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
