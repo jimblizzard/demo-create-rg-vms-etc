@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworks_avnet_name": {
+            "value": null
+        },
+        "publicIPAddresses_bastionIP_name": {
+            "value": null
+        },
+        "virtualNetworks_storagevnet_name": {
+            "value": null
+        },
+        "bastionHosts_templateBastion_name": {
+            "value": null
+        },
+        "storageAccounts_templatestoragejmb_name": {
+            "value": null
+        }
+    }
+}
